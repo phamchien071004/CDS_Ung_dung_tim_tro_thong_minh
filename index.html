@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trợ lý gợi ý phòng trọ</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🏠 Trợ lý gợi ý phòng trọ sinh viên</h1>
+      <p>Nhập yêu cầu để AI gợi ý phòng trọ phù hợp nhất</p>
+    </header>
+
+    <main>
+      <div class="chat-box" id="chatBox">
+        <div class="bot-message">
+          👋 Xin chào! Mình là trợ lý AI. Hãy cho mình biết yêu cầu phòng trọ của bạn nhé.
+        </div>
+      </div>
+
+      <div class="input-area">
+        <textarea id="question" placeholder="Ví dụ: Tôi muốn tìm phòng trọ ở Hà Nội giá khoảng 2 triệu..."></textarea>
+        <button id="sendBtn">Gửi</button>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const sendBtn = document.getElementById("sendBtn");
+    const chatBox = document.getElementById("chatBox");
+    const questionInput = document.getElementById("question");
+
+    sendBtn.addEventListener("click", askAI);
+
+    async function askAI() {
+      const question = questionInput.value.trim();
+      if (!question) return;
+
+      appendMessage(question, "user");
+      questionInput.value = "";
+
+      appendMessage("⏳ Đang xử lý...", "bot");
+
+      try {
+        const res = await fetch("http://localhost:3000/api/ask", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ question }),
+        });
+
+        const data = await res.json();
+        const lastBotMsg = chatBox.querySelector(".bot-message:last-child");
+        lastBotMsg.remove();
+
+        if (data.answer.length === 0) {
+          appendMessage("❌ Không tìm thấy phòng phù hợp.", "bot");
+        } else {
+          data.answer.forEach(room => appendRoomCard(room));
+        }
+      } catch (err) {
+        appendMessage("🚫 Lỗi kết nối tới server.", "bot");
+        console.error(err);
+      }
+    }
+
+    function appendMessage(content, sender) {
+      const msg = document.createElement("div");
+      msg.classList.add(sender === "user" ? "user-message" : "bot-message");
+      msg.textContent = content;
+      chatBox.appendChild(msg);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function appendRoomCard(room) {
+      const card = document.createElement("div");
+      card.classList.add("bot-message", "room-card");
+
+      const img = document.createElement("img");
+      img.src = room.image || "https://via.placeholder.com/150";
+      card.appendChild(img);
+
+      const info = document.createElement("div");
+      info.classList.add("room-info");
+
+      const name = document.createElement("h3");
+      name.textContent = `${room.name} - ${room.price.toLocaleString()} VND`;
+      info.appendChild(name);
+
+      const district = document.createElement("p");
+      district.textContent = `Khu vực: ${room.district}`;
+      info.appendChild(district);
+
+      const amenities = document.createElement("p");
+      amenities.textContent = `Tiện nghi: ${room.amenities.join(", ")}`;
+      info.appendChild(amenities);
+
+      const desc = document.createElement("p");
+      desc.textContent = `Mô tả: ${room.desc}`;
+      info.appendChild(desc);
+
+      card.appendChild(info);
+      chatBox.appendChild(card);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  </script>
+</body>
+</html>
