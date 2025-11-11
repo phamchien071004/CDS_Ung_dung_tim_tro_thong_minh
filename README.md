@@ -4,95 +4,101 @@
 
 
 </br> </div>
-🌟 Giới thiệu
 
-Ứng dụng AI Gợi Ý Phòng Trọ là hệ thống hỗ trợ sinh viên tìm phòng trọ phù hợp nhanh chóng và cá nhân hóa, dựa trên các tiêu chí như vị trí, giá cả, tiện ích, đánh giá của người dùng trước, giúp tối ưu thời gian tìm kiếm và nâng cao trải nghiệm thuê trọ.
+## 🌟 Giới thiệu
 
-Hệ thống gồm hai phần:
+Đây là một hệ thống web/ứng dụng đơn giản nhằm mục đích sử dụng logic gợi ý (AI/thuật toán) để đề xuất phòng trọ phù hợp nhất cho sinh viên dựa trên các tiêu chí cá nhân (ngân sách, vị trí, tiện ích, v.v.).
 
-Ứng dụng di động (Mobile App): Sinh viên có thể tìm kiếm, xem gợi ý phòng trọ, và lưu phòng yêu thích.
+Dự án được triển khai với kiến trúc cơ bản gồm Node.js cho Backend và giao diện người dùng thuần HTML/CSS/JS.
 
-Trang quản lý (Web Dashboard): Quản trị viên và chủ nhà quản lý phòng, theo dõi lượt đặt, đánh giá và phản hồi người dùng.
+## ⚙️ Mục tiêu
 
-⚙️ Mục tiêu
+  - Áp dụng các thuật toán đơn giản trong tệp **`suggest.js`** để thực hiện chức năng gợi ý.
+  - Xây dựng giao diện tìm kiếm và hiển thị kết quả phòng trọ dễ sử dụng.
+  - Phân tích dữ liệu phòng trọ trong **`data.json`** để tối ưu hóa gợi ý.
 
-Gợi ý phòng trọ cá nhân hóa theo nhu cầu sinh viên.
+-----
 
-Giúp sinh viên tiết kiệm thời gian và công sức khi tìm phòng.
+## 📂 Cấu trúc Dự án
 
-Tạo hệ sinh thái minh bạch, kết nối giữa sinh viên, chủ nhà và quản trị hệ thống.
+Dự án được tổ chức theo cấu trúc tệp sau:
 
-Hệ thống thân thiện, chạy trên điện thoại Android/iOS và web.
+```
+AI_GoiY_PhongTro/
+├── node_modules/       # Thư mục chứa các thư viện Node.js (cài đặt khi chạy npm install).
+├── README.md           # Tài liệu này.
+├── data.json           # Dữ liệu đầu vào: Danh sách các phòng trọ.
+├── index.html          # Giao diện người dùng (Frontend).
+├── package-lock.json   # Khóa gói để đảm bảo phiên bản phụ thuộc thống nhất.
+├── package.json        # Định nghĩa dự án và liệt kê các gói phụ thuộc (Express, v.v.).
+├── scrips.js           # JavaScript xử lý tương tác giao diện và gọi API.
+├── server.js           # Máy chủ Node.js/Express (Backend API).
+├── style.css           # CSS định dạng giao diện.
+└── suggest.js          # **Logic AI/Thuật toán Gợi ý.**
+```
 
-🌟 Tính năng chính
-📱 Ứng dụng di động (sinh viên)
+### 🧠 Vai trò chính của các Tệp
 
-Tìm và nhận gợi ý phòng trọ:
+| Tệp | Mô tả |
+| :--- | :--- |
+| **`server.js`** | Khởi chạy máy chủ API, xử lý các yêu cầu như `/api/get-rooms` và `/api/suggest-room`. |
+| **`suggest.js`** | **Tệp cốt lõi của đề tài.** Chứa các hàm nhận dữ liệu phòng trọ và tiêu chí sinh viên, sau đó trả về danh sách phòng trọ được sắp xếp theo độ phù hợp. |
+| **`data.json`** | Chứa danh sách các đối tượng phòng trọ (ví dụ: `id`, `price`, `area`, `distance_to_university`, `utilities`). |
+| **`index.html`** | Hiển thị form để sinh viên nhập ngân sách, trường học, và các yêu cầu khác. |
+| **`scrips.js`** | Gửi dữ liệu sinh viên từ form đến `server.js` và xử lý việc hiển thị kết quả gợi ý trả về. |
 
-Xem danh sách phòng phù hợp dựa trên nhu cầu.
+-----
 
-Nhập thông tin yêu cầu: ngân sách, khu vực, tiện ích mong muốn.
+## 🛠️ CÔNG NGHỆ SỬ DỤNG
 
-Nhận gợi ý từ AI dựa trên các tiêu chí và lịch sử lựa chọn.
+| Thành phần | Công nghệ |
+| :--- | :--- |
+| **Backend** | NodeJS, Express.js |
+| **Frontend** | HTML5, CSS3, JavaScript (Vanilla JS) |
+| **Database** | JSON File (`data.json`) (Đơn giản hóa cho mục đích demo) |
+| **Logic AI** | Thuật toán dựa trên thuộc tính (Content-Based) trong `suggest.js` |
 
-Quản lý phòng yêu thích và đánh giá:
+-----
 
-Lưu phòng trọ quan tâm để xem sau.
+## 🚀 Hướng Dẫn Cài Đặt và Chạy
 
-Gửi đánh giá và bình luận, giúp cải thiện chất lượng gợi ý AI.
+Thực hiện theo các bước sau để khởi chạy ứng dụng:
 
-Giao diện thân thiện:
+### 1️⃣ Chuẩn bị môi trường
 
-Xây dựng bằng Flutter, bố cục rõ ràng, dễ thao tác.
+Đảm bảo bạn đã cài đặt **Node.js** và **npm** trên máy tính.
 
-Hỗ trợ đa ngôn ngữ.
+### 2️⃣ Cài đặt phụ thuộc (Dependencies)
 
-🖥️ Trang quản lý (Web Dashboard)
+Mở Terminal hoặc Command Prompt, di chuyển đến thư mục gốc của dự án và chạy lệnh sau để cài đặt các gói cần thiết (dựa trên `package.json`):
 
-Quản lý phòng trọ: thêm, sửa, xóa phòng; cập nhật thông tin tiện ích và giá.
+```bash
+npm install
+```
 
-Thống kê và báo cáo: lượt xem, lượt đặt, đánh giá của sinh viên, biểu đồ trực quan bằng Recharts.
+### 3️⃣ Khởi chạy Server Backend
 
-Quản lý phản hồi: xem đánh giá, phản hồi từ sinh viên và xử lý khi cần.
+Khởi động máy chủ Node.js/Express:
 
-Quản lý người dùng và quyền hạn: phân quyền quản trị viên, nhân viên và chủ nhà.
+```bash
+node server.js
+```
 
-📂 Cấu trúc dự án
-AI_GoiY_PhongTro
-├── 📱 mobile_app/ # Ứng dụng Flutter cho sinh viên
-│   ├── lib/
-│   │   ├── models/       # Model dữ liệu phòng trọ
-│   │   ├── screens/      # Giao diện các màn hình
-│   │   ├── services/     # Kết nối API backend
-│   │   └── main.dart  
-│   ├── pubspec.yaml
-│   └── README.md
-│
-├── 🌐 web_dashboard/ # Trang quản lý (React 18 + Vite)
-│   ├── src/
-│   │   ├── pages/
-│   │   ├── components/
-│   │   ├── services/
-│   │   └── store/
-│   ├── package.json
-│   └── README.md
-│
-├── 🧠 backend_api/ # API kết nối mobile và web
-│   ├── server.js (Node.js / Express)
-│   ├── seed.js
-│   ├── package.json
-│   ├── .env
-│   ├── uploads/
-│   └── src/
-│       ├── models/
-│       └── routes/
-│
-└── 📄 README.md # Tài liệu dự án
+Sau khi chạy thành công, máy chủ thường sẽ hoạt động tại địa chỉ: `http://localhost:3000` (hoặc cổng được định nghĩa trong `server.js`).
 
-🛠️ Công nghệ sử dụng
-📱 Ứng dụng di động
-<div align="center"> [![Flutter](https://img.shields.io/badge/Flutter-3.x-blue?style=for-the-badge&logo=flutter)]() [![GetX](https://img.shields.io/badge/GetX-State%20Management-purple?style=for-the-badge)]() [![Dart](https://img.shields.io/badge/Dart-2.x-blue?style=for-the-badge&logo=dart)]() </div>
-🌐 Trang quản lý
-<div align="center"> [![React](https://img.shields.io/badge/React-18.x-blue?style=for-the-badge&logo=react)]() [![Vite](https://img.shields.io/badge/Vite-Build%20Tool-orange?style=for-the-badge)]() [![Tailwind](https://img.shields.io/badge/TailwindCSS-Design%20System-06B6D4?style=for-the-badge)]() </div>
-🧠 Backend & Cơ sở dữ liệu
-<div align="center"> [![NodeJS](https://img.shields.io/badge/NodeJS-Server-brightgreen?style=for-the-badge&logo=node.js)]() [![Express](https://img.shields.io/badge/Express-Framework-lightgrey?style=for-the-badge)]() [![MongoDB](https://img.shields.io/badge/MongoDB-Database-green?style=for-the-badge&logo=mongodb)]() [![Scikit-learn](https://img.shields.io/badge/Scikit--learn-AI%20Model-orange?style=for-the-badge&logo=python)]() </div>
+### 4️⃣ Truy cập Giao diện
+
+Mở trình duyệt web của bạn và truy cập vào tệp `index.html` trực tiếp, hoặc nếu server của bạn phục vụ các tệp tĩnh, hãy truy cập:
+
+```
+http://localhost:3000/index.html
+```
+
+-----
+
+## 📖 Hướng Dẫn Sử Dụng
+
+1.  **Nhập Thông tin:** Trên giao diện `index.html`, sinh viên nhập các tiêu chí tìm kiếm (Ngân sách, yêu cầu về Diện tích, Tên trường Đại học, v.v.).
+2.  **Gửi Yêu cầu:** Nhấn nút "Tìm phòng trọ" (hoặc tương tự), tệp `scrips.js` sẽ gửi dữ liệu này đến `server.js`.
+3.  **Xử lý Gợi ý:** `server.js` sẽ gọi hàm trong **`suggest.js`** để tính toán điểm phù hợp của từng phòng trọ trong `data.json`.
+4.  **Kết quả:** Danh sách phòng trọ được gợi ý (đã sắp xếp theo độ phù hợp) sẽ được trả về và hiển thị trên `index.html`.
