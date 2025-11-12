@@ -1,4 +1,7 @@
-<h1 align="center">ỨNG DỤNG AI GỢI Ý PHÒNG TRỌ CHO SINH VIÊN</h1> <div align="center"> <p align="center"> <img src="https://raw.githubusercontent.com/anhminhvdvn/CanhBaoDotNhap/main/images/logoDaiNam.png" width="150"> </p> <br>
+<h1 align="center">ỨNG DỤNG AI GỢI Ý PHÒNG TRỌ CHO SINH VIÊN</h1> 
+<div align="center">
+  <p align="center">
+    <img src="https://raw.githubusercontent.com/anhminhvdvn/CanhBaoDotNhap/main/images/logoDaiNam.png" width="150"> </p> <br>
 
 
 
